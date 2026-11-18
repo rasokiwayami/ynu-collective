@@ -96,7 +96,8 @@
   function done(quiet) {
     flow.classList.add('made');
     if (!quiet) sound('made');
-    cue = setTimeout(() => flow.classList.add('cue'), reduce ? 0 : 6000); // 少し触ってもらってから、下への誘いを出す
+    // 下への誘いを出す。指で触る画面では、分子の上のなぞりが回転に使われてページを送れないので、すぐに出す
+    cue = setTimeout(() => flow.classList.add('cue'), reduce ? 0 : matchMedia('(pointer: coarse)').matches ? 1500 : 6000);
     const t0 = performance.now(); // 会話の枠が縮むあいだ、最後の発言が見える位置に保つ
     const keep = now => { chat.scrollTop = chat.scrollHeight; if (now - t0 < 1900) requestAnimationFrame(keep); };
     requestAnimationFrame(keep);

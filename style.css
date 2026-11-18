@@ -136,6 +136,9 @@ canvas, img { display: block; }
 .next span { animation: down 2.4s ease-in-out infinite; }
 @keyframes down { 50% { transform: translateY(5px); } }
 
+/* 指で触る画面では、帯を高くして、押しやすく・なぞって下へ送りやすくする */
+@media (pointer: coarse) { .flow.cue .next { height: 64px; font-size: 16px; } }
+
 @media (min-width: 860px) {
   .msg p { font-size: 17px; }
   .made-box .again { left: 36px; top: 20px; }
