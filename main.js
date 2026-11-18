@@ -149,9 +149,3 @@
     Promise.race([setSound(b.dataset.sound === 'on'), new Promise(r => setTimeout(r, 1500))]).then(play);
   });
 })();
-
-// 申し込みの画面が見えている間は、下に固定したボタンを隠す
-(() => {
-  const bar = document.querySelector('.bar'), apply = document.querySelector('.apply');
-  if (bar && apply) new IntersectionObserver(([e]) => bar.classList.toggle('off', e.isIntersecting), { threshold: .3 }).observe(apply);
-})();
