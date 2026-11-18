@@ -136,6 +136,8 @@ canvas, img { display: block; }
 .next span { animation: down 2.4s ease-in-out infinite; }
 @keyframes down { 50% { transform: translateY(5px); } }
 
+/* 最初の画面の演出が終わるまで、下の画面は出さない */
+.hold .apply, .hold .foot { display: none; }
 /* 下に固定する申し込みのボタンは置かない（最初の画面の演出より先に目に入るため）。申し込みは下の画面で行う */
 .c { --bar: 0px; }
 /* スマホでは、完成品を見せたあと最初の画面を少し縮め、下の画面の日時をのぞかせて、続きがあると分かるようにする */

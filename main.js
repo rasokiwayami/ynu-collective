@@ -97,7 +97,7 @@
     flow.classList.add('made');
     if (!quiet) sound('made');
     // 分子だけの画面をしばらく見せてから、下への誘いを出す（スマホでは、下の画面の日時ものぞかせる）
-    cue = setTimeout(() => flow.classList.add('cue'), reduce ? 0 : 6000);
+    cue = setTimeout(() => { flow.classList.add('cue'); document.body.classList.remove('hold'); }, reduce ? 0 : 6000);
     const t0 = performance.now(); // 会話の枠が縮むあいだ、最後の発言が見える位置に保つ
     const keep = now => { chat.scrollTop = chat.scrollHeight; if (now - t0 < 1900) requestAnimationFrame(keep); };
     requestAnimationFrame(keep);
@@ -121,7 +121,7 @@
     done(reduce);
   }
   function play() {
-    clearTimeout(timer); at = 0; list.textContent = ''; clearTimeout(cue); flow.classList.remove('made', 'cue'); zoomOff();
+    clearTimeout(timer); at = 0; list.textContent = ''; clearTimeout(cue); flow.classList.remove('made', 'cue'); document.body.classList.add('hold'); zoomOff();
     if (!box.querySelector('iframe')) { // 会話のあいだに読み込んでおく
       const f = document.createElement('iframe');
       f.src = APP; f.title = 'てのひら分子：カフェインの分子の模型'; f.allow = 'camera';
@@ -132,6 +132,7 @@
   chat.addEventListener('click', () => { if (!flow.classList.contains('made')) finish(); });
   box.querySelector('.again').addEventListener('click', play);
   // はじめに音を出すかを選んでもらう。押した操作で音が出せるようになり、そこから会話が始まる
+  document.body.classList.add('hold'); // 下への誘いが出るまで、下の画面は出さない（Safariの浮いたバーの裏に見えてしまうため）
   const gate = flow.querySelector('.gate');
   // 見出しは1文字ずつ、ぼけた状態から焦点が合うように出す。出そろってからボタンを出す
   let n = 0;
