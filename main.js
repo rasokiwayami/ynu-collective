@@ -92,12 +92,25 @@
     wait(() => { zoomOff(); wait(step, 1900); }, 2600);
   }
 
-  let cue = 0;
+  // ---- 下への誘い（スマホでは、下の画面の日時ものぞかせる）を出す時刻 ----
+  // カメラを使い始めた人には、手で回す・両手で広げるを試す時間を取ってから出す。
+  let cue = 0, used = false; // used：カメラを使い始めたか
+  function cueIn(ms) {
+    clearTimeout(cue);
+    cue = setTimeout(() => { flow.classList.add('cue'); document.body.classList.remove('hold'); }, ms);
+  }
+  addEventListener('message', e => { // 枠の中のてのひら分子が、カメラの状態と案内の進み具合を知らせてくる
+    const f = box.querySelector('iframe');
+    if (!f || e.source !== f.contentWindow || e.origin !== new URL(APP).origin || e.data?.source !== 'molecule-viewer') return;
+    if (!flow.classList.contains('made') || flow.classList.contains('cue')) return;
+    if (e.data.hands === 'starting') { used = true; cueIn(45000); } // 起動を待つ。動かなかったときの上限
+    else if (e.data.hands === 'on') { used = true; cueIn(30000); } // 手を映す・回す・広げるを試す時間
+    else if (used && (e.data.hands === 'off' || e.data.guide === 'done')) cueIn(4000); // やめた・ひととおり試した
+  });
   function done(quiet) {
     flow.classList.add('made');
     if (!quiet) sound('made');
-    // 分子だけの画面をしばらく見せてから、下への誘いを出す（スマホでは、下の画面の日時ものぞかせる）
-    cue = setTimeout(() => { flow.classList.add('cue'); document.body.classList.remove('hold'); }, reduce ? 0 : 6000);
+    cueIn(reduce ? 0 : 15000); // 分子とカメラのボタンだけの画面を、しばらく見せる
     const t0 = performance.now(); // 会話の枠が縮むあいだ、最後の発言が見える位置に保つ
     const keep = now => { chat.scrollTop = chat.scrollHeight; if (now - t0 < 1900) requestAnimationFrame(keep); };
     requestAnimationFrame(keep);
