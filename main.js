@@ -143,7 +143,6 @@
     if (reduce) finish(); else wait(opening, 400);
   }
   chat.addEventListener('click', () => { if (!flow.classList.contains('made')) finish(); });
-  box.querySelector('.again').addEventListener('click', play);
   // はじめに音を出すかを選んでもらう。押した操作で音が出せるようになり、そこから会話が始まる
   document.body.classList.add('hold'); // 下への誘いが出るまで、下の画面は出さない（Safariの浮いたバーの裏に見えてしまうため）
   const gate = flow.querySelector('.gate');

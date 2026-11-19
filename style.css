@@ -127,8 +127,6 @@ canvas, img { display: block; }
 .made-box { min-height: 0; overflow: hidden; position: relative; opacity: 0; transition: opacity 1.8s var(--ease) .5s; }
 .flow.made .made-box { opacity: 1; }
 .made-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-.made-box .again { position: absolute; left: 12px; top: 64px; font: inherit; font-size: 12px; color: var(--dim); background: rgba(0, 0, 0, .5); border: 1px solid var(--line); padding: 0 10px; min-height: 36px; cursor: pointer; }
-.made-box .again:hover { color: var(--fg); border-color: var(--fg); }
 
 /* 完成品を見たあと、下の申し込みへ誘う帯。しばらくしてから出る */
 .next { display: flex; align-items: center; justify-content: center; gap: 12px; height: 0; overflow: hidden; opacity: 0; font-size: 15px; font-weight: 700; color: var(--ac); text-decoration: none; border-top: 1px solid transparent; transition: height 1s var(--ease), opacity 1s var(--ease), border-color 1s; }
@@ -151,7 +149,6 @@ canvas, img { display: block; }
 
 @media (min-width: 860px) {
   .msg p { font-size: 17px; }
-  .made-box .again { left: 36px; top: 20px; }
   .c .apply { padding: 60px 36px; justify-items: center; }
   .c .apply .in { width: min(100%, 1180px); grid-template-columns: 1.15fr 1fr; column-gap: 96px; row-gap: 36px; align-items: center; }
   .c .apply .place { font-size: 18px; margin-top: 22px; }
